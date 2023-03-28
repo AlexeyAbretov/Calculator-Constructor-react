@@ -1,6 +1,5 @@
 module.exports = {
   "stories": [
-    "../src/**/*.stories.mdx",
     "../src/**/*.stories.@(js|jsx|ts|tsx)"
   ],
   "addons": [
@@ -12,7 +11,4 @@ module.exports = {
   "core": {
     "builder": "@storybook/builder-vite"
   },
-  "features": {
-    "storyStoreV7": true
-  }
 }
