@@ -19,13 +19,14 @@ export const SwitchButton: React.FC<{
 }> = ({ items }) => {
     const [currentButton, setCurrentButton] = useState(items.at(0)?.id);
     const [activeBoxProps, setActiveBoxProps] = useState({ width: 0, left: 0});
-    const buttonRefs = useRef({});
+    const buttonRefs = useRef<{
+        [key in string]?: HTMLDivElement | null
+    }>({});
 
     // Выставляем пропсы для анимированного блока
     useEffect(() => {
-        // TODO: исправить ошибку ТС я не понимаю что он хочет
-        const width = buttonRefs.current[currentButton].offsetWidth;
-        const left = buttonRefs.current[currentButton].offsetLeft;
+        const width = buttonRefs.current[currentButton || '']?.offsetWidth || 0;
+        const left = buttonRefs.current[currentButton || '']?.offsetLeft || 0;
         setActiveBoxProps({ width, left })
     }, [currentButton])
 
@@ -39,7 +40,6 @@ export const SwitchButton: React.FC<{
                 const Icon = icons[x.icon];
 
                 return (<SwitchButtonItem
-                    // TODO: исправить ошибку ТС я не понимаю что он хочет
                     ref={(element) => buttonRefs.current[x.id] = element}
                     onClick={() => setCurrentButton(x.id)}
                     key={x.id}
